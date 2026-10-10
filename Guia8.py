@@ -31,3 +31,12 @@ def clonar_sin_comentarios(archivo: str):
         if _lines[0] != '#':
             c.write(lines)
         
+# 3
+def reverso(archivo: str):
+    f = open(archivo, 'r').readlines()
+    c = open('reverso.txt', 'w')
+    for i in range(len(f)):
+        if 1 == i:
+            c.write('\n')
+        c.write(f[len(f)-i-1])
+
