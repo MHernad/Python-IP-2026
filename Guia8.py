@@ -1,7 +1,7 @@
 # 1.1
 import random
 from queue import LifoQueue as Pila
-
+from queue import Queue as Cola
 
 def contar_lineas(nombre: str) -> int:
     f = open(nombre, 'r')
@@ -109,11 +109,66 @@ def cantidad_elementos(p: Pila) -> int:
 # 11
 def maximo_pila(p: Pila) -> int:
     max: int = float('-inf')
-    i: int = 0
     while not p.empty():
         if p.get() > max:
             max = p.get()
-        i +=1
     return max
 
 # 12
+def esta_bien_balanecada(s: str) -> bool:
+    p = Pila()
+    for c in s:
+        if c == '(' and p.empty():
+            p.put(c)
+        elif c == '(':
+            if p.get() != ')':
+                return False
+        elif c == ')':
+            if p.empty() or p.get() != '(':
+                return False
+    return True
+
+# 13
+def cola_numeros(numeros: list[int]) -> Cola:
+    c = Cola()
+    for n in numeros:
+        c.put(n)
+    return c
+
+# 14
+def cola_size(c: Cola) -> int:
+    i: int = 0
+    while not c.empty():
+        i += 1
+        c.get()
+    return i
+
+# 15
+def maximo_cola(c: Cola) -> int:
+    max: int = float('-inf')
+    while not c.empty():
+        if max < c.get():
+            max = c.get()
+    return max
+
+# 16.1
+def armar_secuencia_juego() -> Cola[int]:
+    c = Cola()
+    sec: list[int] = random.sample(range(100), 100)
+    for n in sec:
+        c.put(n)
+    return c
+
+# 16.2
+def pertenece(lista: list, elem: int) -> bool:
+    return lista.count(elem) != 0
+
+def jugar_carton_de_bingo(carton: list[int], bolillero: Cola[int]) -> int:
+    jugadas: int = 0
+    while not bolillero.empty() and len(carton) > 0:
+        num: int = bolillero.get()
+        if pertenece(carton, num):
+            carton.remove(num)
+        jugadas += 1
+    return jugadas
+
