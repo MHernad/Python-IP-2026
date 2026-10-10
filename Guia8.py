@@ -40,3 +40,46 @@ def reverso(archivo: str):
             c.write('\n')
         c.write(f[len(f)-i-1])
 
+# 4
+def agregar_linea(archivo: str, linea: str):
+    f = open(archivo, 'a')
+    f.write(linea)
+
+# 5
+def agregar_linea_al_principio(archivo: str, linea: str):
+    f = open(archivo, 'r')
+    lineas: list[str] = f.readlines()
+    f.close()
+    f = open(archivo, 'w')
+    f.write(linea + '\n')
+    f.writelines(lineas)
+
+# 6
+def style(b: bytes) -> str:
+    return str(b).split("'")[1]
+
+def leer_binario(archivo: str) -> list[str]:
+    res: list[str] = []
+    f = open(archivo, 'rb')
+    for line in f.readlines():
+        for word in line.split():
+            if len(word) >= 5:
+                res.append(style(word))
+    return res
+
+# 7
+def promedio_estudiante(lu: str) -> float:
+    f = open('notas.csv', 'r').readlines()
+    nota: float = 0
+    cont: int = 0
+    for line in f:
+        line_aux: list[str] = line.split(',')
+        for data in line_aux:
+            if str(data) == lu:
+                nota += float(line_aux[3])
+                cont += 1
+    if cont == 0:
+        return 0
+    return nota / cont
+
+print(promedio_estudiante('12'))
