@@ -1,4 +1,8 @@
 # 1.1
+import random
+from queue import LifoQueue as Pila
+
+
 def contar_lineas(nombre: str) -> int:
     f = open(nombre, 'r')
     return len(f.readlines())
@@ -82,4 +86,34 @@ def promedio_estudiante(lu: str) -> float:
         return 0
     return nota / cont
 
-print(promedio_estudiante('12'))
+# 8
+def generar_numeros_al_azar(n: int, desde: int, hasta: int) -> list[int]:
+    res: list[int] = random.sample(range(desde, hasta), n)
+    return res
+
+# 9
+def pila_de_numeros(numeros: list[int]) -> Pila:
+    p = Pila()
+    for n in numeros:
+        p.put(n)
+    return p
+
+# 10
+def cantidad_elementos(p: Pila) -> int:
+    i: int = 0
+    while not p.empty():
+        i += 1
+        p.get()
+    return i
+
+# 11
+def maximo_pila(p: Pila) -> int:
+    max: int = float('-inf')
+    i: int = 0
+    while not p.empty():
+        if p.get() > max:
+            max = p.get()
+        i +=1
+    return max
+
+# 12
