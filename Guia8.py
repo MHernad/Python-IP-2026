@@ -172,3 +172,61 @@ def jugar_carton_de_bingo(carton: list[int], bolillero: Cola[int]) -> int:
         jugadas += 1
     return jugadas
 
+# 17
+def pacientes_urgentes(c: Cola[(int, str, str)]):
+    n: int = 0
+    while not c.empty():
+        paciente: tuple = c.get()
+        if paciente[0] in [1,2,3]:
+            n += 1
+    return n
+
+# 18
+def agrupar_longitud(archivo: str) -> dict:
+    d: dict = {}
+    f = open(archivo, 'r').readlines()
+    for line in f:
+        for word in line.split():
+            key = len(word)
+            if key not in d.keys():
+                d[key] = 1
+            else:
+                d.update({key: d[key]+1})
+    return d
+
+# 19
+def promedios(archivo: str) -> dict:
+    d: dict = {}
+    f = open(archivo, 'r')
+    f.readline()
+    f = f.readlines()
+    for line in f:
+        words = line.split(',')
+        key:str = words[0]
+        nota: float = float(words[3])
+        if key not in d.keys():
+            d[key] = (nota, 1)
+        else:
+            d[key] = (d[key][0] + nota, d[key][1] + 1)
+    for key in d.keys():
+        d[key] = d[key][0] / d[key][1]
+    return d
+
+# 20
+def palabra_mas_frecuente(archivo: str) -> str:
+    d: dict = {}
+    f = open(archivo, 'r').readlines()
+    for line in f:
+        for word in line.split():
+            word = str.lower(word)
+            if word not in d.keys():
+                d[word] = 1
+            else:
+                d[word] = d[word] + 1
+    s: str = ""
+    c: int = 0
+    for key in d.keys():
+        if d[key] > c:
+            c = d[key]
+            s = key
+    return s
