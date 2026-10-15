@@ -247,10 +247,14 @@ inv: dict[str, dict[str, float | int]] = {
 }
 
 # b
-def update_stock(inv: dict[str, dict[str, float | int]], nombre: str, cantidad: int):
+def update_stock(inv: dict[str, dict[str, float | int]], nombre: str, cantidad: float):
     d: dict[str, float | int] = inv[nombre]
     d['Stock'] = cantidad
     inv[nombre] = d
 
-update_stock(inv, 'Remera', 10)
-print(inv)
+# c
+def update_precio(inv: dict[str, dict[str, float | int]], nombre: str, precio: int):
+    d: dict[str, float | int] = inv[nombre]
+    d['Precio'] = precio
+    inv[nombre] = d
+
