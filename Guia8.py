@@ -265,4 +265,127 @@ def valor_inventario(inv: dict[str, dict[str, float | int]]) -> float:
         fat_stacks += inv[key]['Precio'] * inv[key]['Stock']
     return fat_stacks
 
+# Archivos
+t: str = 'texto.txt'
+# 19
+# a
+def contar_lineas(path: str) -> int:
+    f = open(path, 'r')
+    return len(f.readlines())
 
+# b
+def existe_palabra(path: str, palabra: str) -> bool:
+    f = open(path, 'r')
+    for line in f.readlines(): # Divido por lineas
+        line = line.split() # Divido por palabras
+        if pertenece(line, palabra):
+            return True
+    return False
+
+# c
+def cantidad_de_apariciones_en_archivo(path: str, p: str) -> int:
+    f = open(path, 'r')
+    i: int = 0
+    for line in f.readlines():
+        for palabra in line.split():
+            if palabra == p: # str.lower(palabra) == str.lower(p) si no queres que sea Case-Sensitive
+                i += 1
+    return i
+
+# 20
+def agrupar_x_longitud(path: str) -> dict[int, int]:
+    f = open(path, 'r')
+    d: dict[int, int] = {}
+    for line in f.readlines():
+        for palabra in line.split():
+            key: int = len(palabra)
+            if key not in d.keys():
+                d[key] = 1
+            else:
+                d[key] = d[key] + 1
+    return d
+
+# 21
+def palabra_mas_frecuente(path: str) -> str:
+    f = open(path, 'r')
+    d: dict[str, int] = {}
+    for line in f.readlines():
+        for palabra in line.split():
+            if palabra not in d.keys():
+                d[palabra] = 1
+            else:
+                d[palabra] = d[palabra] + 1
+    res: str = ""
+    res_aux: int = 0
+    for key, value in d.items():
+        if value > res_aux:
+            res = key
+            res_aux = value
+    return res
+
+# 22
+def clonar_sin_comentarios(path: str):
+    f = open(path, 'r')
+    c = open('copia.txt', 'w')    
+    for lines in f.readlines():
+        _lines = lines.split()
+        if _lines[0] != '#':
+            c.write(lines)
+
+# 23
+def reverso(path: str):
+    f = open(path, 'r').readlines()
+    c = open('reverso.txt', 'w')
+    for i in range(len(f)):
+        if 1 == i:
+            c.write('\n')
+        c.write(f[len(f)-i-1])
+
+# 24
+def agregar_linea_al_final(path: str, linea: str):
+    f = open(path, 'a')
+    f.write('\n' + linea)
+
+# 25
+def agregar_linea_al_principio(path: str, linea: str):
+    f = open(path, 'r')
+    lineas: list[str] = f.readlines()
+    f.close()
+    f = open(path, 'w')
+    f.write(linea + '\n')
+    f.writelines(lineas)
+
+# 26
+def listar_textos_de_archivos(path: str) -> list[str]:
+    f = open(path, 'rb')
+    f = f.read()
+    s: str = ""
+    res: list[str] = []
+    for p in f:
+        p = chr(p)
+        if p.islower() or p.isnumeric() or p == '_':
+            s += p
+        elif p.isupper():
+            if len(s) >= 5:
+                res.append(s)
+            s = p
+        elif p == ' ':
+            if len(s) >= 5:
+                res.append(s)
+            s = ""
+    return res
+
+# 27
+def calcular_promedio_x_estudiante(path: str, out: str):
+    f = open(path, 'r').readlines()
+    o = open(out, 'w')
+    l: list[(str, float)] = []
+    for line in f:
+        line = line.split(',')
+        t: tuple[str, float] = (line[0],float(line[3]))
+        l.append(t)
+    d: dict[str, float] = promedio_x_estudiante(l)
+    for key, value in d.items():
+        o.write(key + ',' + str(value) + '\n')
+
+calcular_promedio_x_estudiante('notas.csv', 'promedios.csv')
