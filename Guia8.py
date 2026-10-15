@@ -258,3 +258,11 @@ def update_precio(inv: dict[str, dict[str, float | int]], nombre: str, precio: i
     d['Precio'] = precio
     inv[nombre] = d
 
+# d
+def valor_inventario(inv: dict[str, dict[str, float | int]]) -> float:
+    fat_stacks: float = 0
+    for key in inv.keys():
+        fat_stacks += inv[key]['Precio'] * inv[key]['Stock']
+    return fat_stacks
+
+
